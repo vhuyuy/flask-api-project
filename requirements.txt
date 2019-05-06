@@ -14,7 +14,7 @@ colorama==0.4.1
 flasgger==0.9.1
 Flask==1.0.2
 Flask-And-Redis==1.0.0
--e git+https://github.com/hacfox/flask-api-project.git@24bd0ab7c390e4468488727176275c0e5e911350#egg=flask_api_project
+-e .
 Flask-APScheduler==1.11.0
 Flask-Caching==1.7.0
 Flask-Cors==3.0.4
