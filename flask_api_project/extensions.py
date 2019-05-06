@@ -1,13 +1,17 @@
+import redis
 from celery import Celery
 from flasgger import Swagger
 from flask_cors import CORS
-from flask_redis import FlaskRedis
+from flask_redis import Redis
 from flask_sqlalchemy import SQLAlchemy
 
 '''
 init tools
 '''
-redis_store = FlaskRedis()
+# redis_store = StrictRedis(port=16379)
+
+# redis_store = Redis(port=16379, decode_responses=True)
+redis_store = Redis()
 
 celery = Celery('flask_api_project', include=['flask_api_project.proj.tasks'])
 

@@ -5,7 +5,7 @@ from flask import Flask
 from .apis import urls
 from .config.celery_config import CeleryConfig
 from .config.default_config import DefaultConfig
-from .extensions import cors, db, swagger, celery
+from .extensions import cors, db, swagger, celery, redis_store
 from .logger.logger import log, init
 
 _default_instance_path = '%(instance_path)s/instance' % \
@@ -24,22 +24,26 @@ def create_app():
     return app
 
 
-# def configure_app(app):
-#     if os.environ.get('STAGING_CONFIG'):
-#         app.config.from_envvar('STAGING_CONFIG')
-#         return
-#
-#     if os.environ.get('PRODUCTION_CONFIG'):
-#         app.config.from_envvar('PRODUCTION_CONFIG')
-#         return
-#
-#     if os.environ.get('DEV_CONFIG'):
-#         app.config.from_envvar('DEV_CONFIG')
-#         return
 def configure_app(app):
     app.config.from_object(CeleryConfig)
     app.config.from_object(DefaultConfig)
-    app.config.from_pyfile('dev.py')
+    if os.environ.get('STAGING_CONFIG'):
+        app.config.from_envvar('STAGING_CONFIG')
+        return
+
+    if os.environ.get('PRODUCTION_CONFIG'):
+        app.config.from_envvar('PRODUCTION_CONFIG')
+        return
+
+    if os.environ.get('DEV_CONFIG'):
+        app.config.from_envvar('DEV_CONFIG')
+        return
+
+
+# def configure_app(app):
+#     app.config.from_object(CeleryConfig)
+#     app.config.from_object(DefaultConfig)
+#     app.config.from_pyfile('dev.py')
 
 
 def configure_logging():
@@ -68,6 +72,10 @@ def configure_extensions(app):
                   origins=app.config['CORS_ORIGINS'],
                   methods=app.config['CORS_METHODS'],
                   allow_headers=app.config['CORS_ALLOW_HEADERS'])
+
+    # redis
+    redis_store.init_app(app)
+
     # db
     db.init_app(app)
 

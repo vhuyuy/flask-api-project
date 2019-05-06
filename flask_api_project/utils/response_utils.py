@@ -24,6 +24,9 @@ def response(data=None, error_code=None, msg='', http_status_code=200):
 
 
 def error(msg='error', error_code=None, http_status_code=200):
+    if isinstance(error_code, Enum):
+        msg = error_code.get_msg()
+        return response(error_code=error_code.get_code(), msg=msg, http_status_code=http_status_code)
     return response(error_code=error_code, msg=msg, http_status_code=http_status_code)
 
 
