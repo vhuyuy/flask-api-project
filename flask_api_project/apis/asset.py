@@ -3,7 +3,6 @@ import os
 from flask import make_response, current_app
 from flask_restful import Resource
 from sqlalchemy import text
-from werkzeug.exceptions import NotFound
 
 from ..extensions import db
 from ..logger.logger import log

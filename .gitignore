@@ -58,7 +58,7 @@ target/
 
 #
 .python-version
-flask_api_project/instance/*.py
+flask_api_project/instance/dev.py
 .envrc
 *.egg-info/
 *.log
