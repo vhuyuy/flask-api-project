@@ -13,3 +13,4 @@ class SystemErrorEnum(BaseEnum):
     READ_TIMED_OUT_ERROR = {"101002": "System busy(101002)"}
     DATABASE_ERROR = {"101003": "System busy(101003)"}
     REDIS_ERROR = {"101004": "System busy(101004)"}
+    KAFKA_ERROR = {"101005": "System busy(101005)"}

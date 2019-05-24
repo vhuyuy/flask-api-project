@@ -1,4 +1,4 @@
-from ...apis import asset
+from flask_api_project.apis.controller import asset
 
 urls = [
     '/v1/asset/getallassets', asset.GetAllAssets,

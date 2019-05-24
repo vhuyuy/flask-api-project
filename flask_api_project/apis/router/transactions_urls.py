@@ -1,4 +1,4 @@
-from ...apis import transactions
+from flask_api_project.apis.controller import transactions
 
 urls = [
     "/v1/transactions/confirms", transactions.Confirms,

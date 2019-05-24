@@ -2,11 +2,13 @@ import os
 
 from flask import Flask
 
-from .apis import urls
+# from flask_api_project.apis import urls
+from flask_api_project.apis import router
 from .config.celery_config import CeleryConfig
 from .config.default_config import DefaultConfig
 from .extensions import cors, db, swagger, celery, redis_store
 from .logger.logger import log, init
+from .rabbitmq_utils.mq_extensions import fpika, bind_init
 
 _default_instance_path = '%(instance_path)s/instance' % \
                          {'instance_path': os.path.dirname(os.path.realpath(__file__))}
@@ -20,7 +22,8 @@ def create_app():
     configure_celery(app, celery)
     configure_extensions(app)
     configure_blueprint(app)
-    log.info('server start...')
+    configure_rabbitmq(app)
+    log.info('Server\'s OK.')
     return app
 
 
@@ -83,5 +86,10 @@ def configure_extensions(app):
     swagger.init_app(app)
 
 
+def configure_rabbitmq(app):
+    fpika.init_app(app)
+    bind_init()
+
+
 def configure_blueprint(app):
-    urls.register_blueprint(app)
+    router.register_blueprint(app)

@@ -1,10 +1,10 @@
 from flask_restful import Resource
 from sqlalchemy import text
 
-from ..extensions import db
-from ..logger.logger import log
-from ..utils.requests_utils import get_argument, get_dict
-from ..utils.response_utils import ok
+from ...extensions import db
+from ...logger.logger import log
+from ...utils.requests_utils import get_argument, get_dict
+from ...utils.response_utils import ok
 
 
 class SearchAssetAndNep5(Resource):

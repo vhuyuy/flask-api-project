@@ -2,11 +2,11 @@ import random
 
 from flask_restful import Resource
 
-from ..exceptions.service_error_code import ServiceErrorEnum
-from ..extensions import redis_store
-from ..logger.logger import log
-from ..utils import redis_utils
-from ..utils.response_utils import ok, error
+from ...exceptions.service_error_code import ServiceErrorEnum
+from ...extensions import redis_store
+from ...logger.logger import log
+from ...utils import redis_utils
+from ...utils.response_utils import ok, error
 
 
 class TestLock(Resource):

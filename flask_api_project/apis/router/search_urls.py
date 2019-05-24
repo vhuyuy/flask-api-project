@@ -1,4 +1,4 @@
-from ...apis import search
+from flask_api_project.apis.controller import search
 
 urls = [
     "/v1/search", search.SearchAssetAndNep5,

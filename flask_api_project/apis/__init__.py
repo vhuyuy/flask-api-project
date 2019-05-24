@@ -3,6 +3,7 @@ import os
 import sqlalchemy
 from flask import make_response
 from flask_restful import Api as BaseApi
+from kafka.producer import kafka
 from sqlalchemy.exc import DBAPIError
 from werkzeug.exceptions import HTTPException
 
@@ -35,6 +36,9 @@ class Api(BaseApi):
             return make_response(e.get_body(), code)
         elif isinstance(e, sqlalchemy.exc.DatabaseError):
             e = SystemErrorEnum.DATABASE_ERROR
+            result = error(msg=e.get_msg(), error_code=e.get_code())
+        elif isinstance(e, kafka.Errors.KafkaError):
+            e = SystemErrorEnum.KAFKA_ERROR
             result = error(msg=e.get_msg(), error_code=e.get_code())
         elif isinstance(e, RequestException) \
                 or isinstance(e, ServiceException) \
